@@ -1,0 +1,101 @@
+.title {
+  color: #000000;
+  font-size: 50px;
+
+  text-align: center;
+  margin: auto;
+}
+
+.cartBox {
+  width: inherit;
+  display: flex;
+  justify-content: center;
+  padding-right: 3.5rem;
+  align-items: center;
+  margin-top: 5;
+}
+.home {
+  background-color: #ffffff;
+}
+.headers {
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(177, 177, 177, 0.989);
+
+  text-align: center;
+  padding: 20px;
+  box-shadow: rgba(52, 51, 51, 0.1);
+}
+.bar {
+  width: inherit;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+.modal {
+  display: inline-table;
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 400px;
+  max-width: 200rem;
+  background-color: #fffdfd;
+  padding: 5rem 6rem;
+  box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+
+  border-radius: 10px;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.236);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  transition: all 0.5s;
+}
+.btn__close_modal {
+  font-family: inherit;
+  color: inherit;
+  position: absolute;
+  top: 0.5rem;
+  right: 2rem;
+  font-size: 4rem;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+.modal__header {
+  font-size: 34px;
+  margin-top: 0;
+  text-align: center;
+}
+.containerItem {
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  width: 900px;
+  justify-content: center;
+  margin-top: 70px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.3);
+  margin-left: 330px;
+}
+.myItemOnCart {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  max-height: 400px; /* adjust the height as per your needs */
+  overflow-y: auto;
+}
