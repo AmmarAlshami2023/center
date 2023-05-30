@@ -1,40 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import classes from "./Product.module.css";
+
 function Product(props) {
-  const [isSelected, setIsSelected] = useState(false);
-  const [itemCounter, setItemCounter] = useState(0);
   const handleOnClick = () => {
-    setIsSelected(true);
     props.onClick();
-    setItemCounter((n) => {
-      return (n += 1);
-    });
   };
   const handleOnClickAdd = () => {
-    setItemCounter((n) => {
-      return (n += 1);
-    });
-    setIsSelected(true);
     props.onClick();
   };
   const handleOnClickRemove = () => {
-    if (itemCounter === 1) {
-      setIsSelected(false);
-    }
-    setItemCounter((n) => {
-      return (n -= 1);
-    });
     props.onClickRemove();
   };
-  if (isSelected) {
+
+  if (props.n) {
     return (
       <div className={classes.productBox}>
         <img
           src={props.img}
-          className={
-            isSelected && itemCounter !== 0 ? classes.imgSelect : classes.img
-          }
-          alt="background"
+          className={props.n ? classes.imgSelect : classes.img}
+          alt="for Product "
         />
         <div className={classes.textBox}>
           <h1 className={classes.text}>{props.title.slice(0, 29)}</h1>
@@ -47,7 +31,7 @@ function Product(props) {
             -
           </button>
           <div className={classes.counterBox}>
-            <h3 className={classes.counterItem}> {itemCounter} </h3>
+            <h3 className={classes.counterItem}> {props.n} </h3>
           </div>
           <button className={classes.buttonPlse} onClick={handleOnClickAdd}>
             +
@@ -60,12 +44,9 @@ function Product(props) {
       <div className={classes.productBox}>
         <img
           src={props.img}
-          className={
-            isSelected && itemCounter !== 0 ? classes.imgSelect : classes.img
-          }
+          className={props.n ? classes.imgSelect : classes.img}
           alt="background"
         />
-
         <div className={classes.textBox}>
           <h1 className={classes.text}>{props.title.slice(0, 29)}</h1>
         </div>
@@ -75,7 +56,14 @@ function Product(props) {
         </div>
 
         <div className={classes.buttonBox}>
-          <button className={classes.button} onClick={handleOnClick}>
+          <button
+            className={classes.button}
+            onClick={(event) => {
+              if (event.target.tagName === "BUTTON") {
+                handleOnClick();
+              }
+            }}
+          >
             add
           </button>
         </div>

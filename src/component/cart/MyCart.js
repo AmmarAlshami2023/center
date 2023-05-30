@@ -4,11 +4,19 @@ function MyCart(props) {
   return (
     <div className={classes.cartItemBox}>
       <div>
-        <img src={props.img} className={classes.imgOnCart} alt="background" />
+        <img
+          src={
+            props.img.includes("https://fakestoreapi.com/img/")
+              ? props.img
+              : "https://fakestoreapi.com/img/" + props.img
+          }
+          className={classes.imgOnCart}
+          alt="background"
+        />
       </div>
 
-      <div>
-        <h5>{props.title}</h5>
+      <div className={classes.title}>
+        <p>{props.title}</p>
       </div>
       <div className={classes.buttonBox}>
         <button className={classes.button} onClick={props.onClick}>

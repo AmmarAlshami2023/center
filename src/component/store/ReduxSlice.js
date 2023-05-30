@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   value: 0,
   item: [],
+  counterItem: [],
   totaleAmount: 0,
 };
 
@@ -23,6 +24,7 @@ export const cartItem = createSlice({
       state.value -= 1;
     },
     addToCart: (state, action) => {
+      state.counterItem.push(action.payload.id);
       state.item.push(action.payload);
     },
     removeFromCart: (state, action) => {
@@ -32,7 +34,9 @@ export const cartItem = createSlice({
       });
       if (index !== -1) {
         newState.item.splice(index, 1);
+        newState.counterItem.splice(index, 1);
       }
+
       state = newState;
     },
   },

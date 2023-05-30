@@ -1,50 +1,135 @@
-.title {
-  color: #000000;
-  font-size: 50px;
-
-  text-align: center;
-  margin: auto;
+@keyframes animTitle {
+  0% {
+    left: 0px;
+    top: 0px;
+  }
+  25% {
+    left: 40%;
+    top: 0px;
+  }
+  50% {
+    left: 40%;
+    top: 90px;
+  }
+  75% {
+    left: 20%;
+    top: 45px;
+  }
+  100% {
+    left: 0px;
+    top: 0px;
+  }
 }
 
-.cartBox {
-  width: inherit;
+@media screen and (min-width: 540px) {
+  .containerItem {
+    width: 225px;
+  }
+  .title {
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .containerItem {
+    width: 225px;
+  }
+  .title {
+    font-size: 30px;
+  }
+  .modal {
+    width: 200px;
+    height: 200px;
+    font-size: 10px;
+  }
+}
+@media screen and (max-width: 570px) {
+  .title {
+    font-size: 30px;
+  }
+  .myItemOnCart {
+    width: 200px;
+    height: 200px;
+  }
+}
+@media screen and (min-width: 580px) {
+  .containerItem {
+    width: 450px;
+  }
+  .title {
+    font-size: 50px;
+  }
+}
+@media screen and (min-width: 720px) {
+  .containerItem {
+    width: 700px;
+  }
+  .title {
+    font-size: 50px;
+  }
+  .myItemOnCart {
+    width: 300px;
+  }
+}
+@media screen and (min-width: 900px) {
+  .containerItem {
+    width: 900px;
+  }
+
+  .myItemOnCart {
+    width: 500px;
+  }
+}
+.title {
+  font-size: 50px;
+}
+.bar {
   display: flex;
-  justify-content: center;
+  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.cartBox {
   padding-right: 3.5rem;
-  align-items: center;
-  margin-top: 5;
+
+  float: right;
 }
 .home {
   background-color: #ffffff;
+  width: 100%;
 }
+
 .headers {
-  align-items: center;
-  justify-content: center;
+  width: 100%;
   background-color: rgba(177, 177, 177, 0.989);
-
   text-align: center;
-  padding: 20px;
-  box-shadow: rgba(52, 51, 51, 0.1);
+  padding: 1.5%;
+  margin-bottom: 70px;
 }
-.bar {
-  width: inherit;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.title {
+  color: #000000;
+  text-align: center;
+  margin: 0%;
+  justify-self: start;
+  font-weight: bold;
+  transition: 0s linear 2s;
 }
-
+.titleBox {
+  position: relative;
+  animation-name: animTitle;
+  animation-duration: 4s;
+}
 .hidden {
   visibility: hidden;
   opacity: 0;
 }
 .modal {
-  display: inline-table;
   position: fixed;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400px;
-  height: 400px;
+
   max-width: 200rem;
   background-color: #fffdfd;
   padding: 5rem 6rem;
@@ -52,6 +137,9 @@
   z-index: 1000;
 
   border-radius: 10px;
+}
+.hide {
+  display: none;
 }
 .overlay {
   position: fixed;
@@ -65,7 +153,6 @@
   transition: all 0.5s;
 }
 .btn__close_modal {
-  font-family: inherit;
   color: inherit;
   position: absolute;
   top: 0.5rem;
@@ -83,19 +170,20 @@
 .containerItem {
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
-  width: 900px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   justify-content: center;
   margin-top: 70px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
   box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.3);
-  margin-left: 330px;
+
+  margin: auto;
 }
 .myItemOnCart {
-  width: 500px;
   display: flex;
   flex-direction: column;
-  max-height: 400px; /* adjust the height as per your needs */
+  max-height: 400px;
   overflow-y: auto;
+
+  flex-wrap: nowrap;
+  justify-content: center;
 }
