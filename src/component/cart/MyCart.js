@@ -1,28 +1,25 @@
 import React from "react";
 import classes from "./MyCart.module.css";
-function MyCart(props) {
+function MyCart({ piece = {}, onClick }) {
   return (
     <div className={classes.cartItemBox}>
       <div>
-        <img
-          src={
-            props.img.includes("https://fakestoreapi.com/img/")
-              ? props.img
-              : "https://fakestoreapi.com/img/" + props.img
-          }
-          className={classes.imgOnCart}
-          alt="background"
-        />
+        <img src={piece.image} className={classes.imgOnCart} alt="background" />
       </div>
 
       <div className={classes.title}>
-        <p>{props.title}</p>
+        <p>{piece.title}</p>
       </div>
       <div className={classes.buttonBox}>
-        <button className={classes.button} onClick={props.onClick}>
+        <button
+          className={classes.button}
+          onClick={() => {
+            onClick();
+          }}
+        >
           Remove
         </button>
-        <h5>{props.price}JD</h5>
+        <h5>{piece.price}JD</h5>
       </div>
     </div>
   );

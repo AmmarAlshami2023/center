@@ -1,5 +1,6 @@
 import React from "react";
 const CartIcon = () => {
+  // this piece of code for return cart Icon on button in header
   return (
     <>
       <svg

@@ -1,112 +1,112 @@
 import React, { useState, useEffect } from "react";
 import classes from "./Home.module.css";
-import CartButton from "./cart/CartButton";
+
 import Product from "./products/Product";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  increment,
-  addToCart,
-  removeFromCart,
-  decrement,
-} from "../component/store/ReduxSlice";
+import { addToCart, removeFromCart } from "../component/store/ReduxSlice";
 import MyCart from "./cart/MyCart";
 import { useNavigate } from "react-router";
+import Header from "./header/Header";
 function Home() {
+  //this piece of code for use state for popup and put items on array
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [products, setProducts] = useState([]);
 
-  const count = useSelector((state) => state.counter.value);
-  const cartItem = useSelector((state) => state.counter.item);
+  //this line of code for navigate to detail page
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const cartItemId = useSelector((state) => state.counter.counterItem);
 
-  const hi = {};
-  cartItemId.forEach((i) => {
-    return (hi[i] = (hi[i] || 0) + 1);
+  //this piece of code for use redux toolkit hooks
+  const cartItem = useSelector((state) => state.cart.item);
+  const dispatch = useDispatch();
+
+  //this piece of code for count id on cart
+  const itemsCount = {};
+  const arryOfId = [];
+  cartItem.map((itemOnCart) => {
+    arryOfId.push(itemOnCart.id);
+  });
+  arryOfId.forEach((index) => {
+    return (itemsCount[index] = (itemsCount[index] || 0) + 1);
   });
 
+  //this piece of code for do http request fetch for get data from API
   useEffect(() => {
     fetch("https://fakestoreapi.com/products/")
       .then((response) => response.json())
       .then((data) => setProducts(data))
       .catch((error) => console.log(error));
   }, []);
-  const myCart = cartItem.map((pice) => {
-    return (
-      <MyCart
-        title={pice.title}
-        key={pice.id}
-        price={pice.price}
-        img={pice.image}
-        onClick={() => {
-          dispatch(decrement());
-          dispatch(removeFromCart(pice.id));
-        }}
-      />
-    );
-  });
 
-  const item = products.map((items) => {
+  //this piece of code to return items on cart
+  const myCart = cartItem.map((piece) => {
     return (
-      <div
-        onClick={(event) => {
-          if (event.target.tagName !== "BUTTON") {
-            navigate(
-              `/productItem/${items.id}/${items.title}/${items.description}/
-              ${items.price}/${items.category}/${items.image.substr(29, 1000)}`
-            );
-          }
-        }}
-      >
-        <Product
-          title={items.title}
-          key={items.id}
-          price={items.price}
-          img={items.image}
-          id={items.id}
-          n={hi[items.id]}
+      <div>
+        <MyCart
+          key={piece.id}
+          piece={piece}
           onClick={() => {
-            dispatch(increment());
-            dispatch(addToCart(items));
-          }}
-          onClickRemove={() => {
-            dispatch(removeFromCart(items.id));
-            dispatch(decrement());
+            dispatch(removeFromCart(piece.id));
           }}
         />
       </div>
     );
   });
+
+  //this piece of code to map state All item
+  const items = products.map((item) => {
+    return (
+      //All item has detail page
+      <div
+        key={item.id}
+        onClick={(event) => {
+          if (event.target.tagName !== "BUTTON") {
+            navigate(`/productItem/${item.id}/`);
+          }
+        }}
+      >
+        <Product
+          item={item}
+          key={item.id}
+          numberOfItem={itemsCount[item.id]}
+          onClick={() => {
+            dispatch(addToCart(item));
+          }}
+          onClickRemove={() => {
+            dispatch(removeFromCart(item.id));
+          }}
+        />
+      </div>
+    );
+  });
+
+  //this piece of code to open cart Popup
   function openPopup() {
     setIsCartOpen(true);
   }
+
+  //this piece of code to close cart Popup
   function closePopup() {
     setIsCartOpen(false);
   }
+
+  //this piece of code to return cart Popap
   return (
-    <div className={isCartOpen ? classes.pupapOpen : classes.home}>
+    <div>
       <div className={isCartOpen ? classes.modal : classes.hide}>
+        <div>
+          <h2 className={classes.modal__header}>Cart</h2>
+        </div>
         <button className={classes.btn__close_modal} onClick={closePopup}>
           &times;
         </button>
-        <h2 className={classes.modal__header}>Cart</h2>
-        <div className={classes.myItemOnCart}>{myCart}</div>
 
-        <div className={[classes.overlay, classes.hidden]}></div>
+        <div className={classes.myItemOnCart}>{myCart}</div>
+      </div>
+      <div>
+        <Header onClick={openPopup} />
       </div>
 
-      <header className={classes.headers}>
-        <div className={classes.bar}>
-          <div className={classes.titleBox}>
-            <h1 className={classes.title}>CENTER</h1>
-          </div>
-          <div className={classes.cartBox}>
-            <CartButton onClick={openPopup} count={count} />
-          </div>
-        </div>
-      </header>
-      <div className={classes.containerItem}>{item}</div>
+      <div className={classes.containerItem}>{items}</div>
     </div>
   );
 }

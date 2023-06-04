@@ -1,39 +1,29 @@
 import React from "react";
 import classes from "./Product.module.css";
 
-function Product(props) {
-  const handleOnClick = () => {
-    props.onClick();
-  };
-  const handleOnClickAdd = () => {
-    props.onClick();
-  };
-  const handleOnClickRemove = () => {
-    props.onClickRemove();
-  };
-
-  if (props.n) {
+function Product({ numberOfItem, item, onClick, onClickRemove }) {
+  if (numberOfItem) {
     return (
       <div className={classes.productBox}>
         <img
-          src={props.img}
-          className={props.n ? classes.imgSelect : classes.img}
+          src={item.image}
+          className={numberOfItem ? classes.imgSelect : classes.img}
           alt="for Product "
         />
         <div className={classes.textBox}>
-          <h1 className={classes.text}>{props.title.slice(0, 29)}</h1>
+          <h1 className={classes.text}>{item.title.slice(0, 29)}</h1>
         </div>
         <div className={classes.PriceBox}>
-          <h2 className={classes.Price}>{props.price}JD</h2>
+          <h2 className={classes.Price}>{item.price}JD</h2>
         </div>
         <div className={classes.buttonBox}>
-          <button className={classes.buttonMin} onClick={handleOnClickRemove}>
+          <button className={classes.buttonMin} onClick={onClickRemove}>
             -
           </button>
           <div className={classes.counterBox}>
-            <h3 className={classes.counterItem}> {props.n} </h3>
+            <h3 className={classes.counterItem}> {numberOfItem} </h3>
           </div>
-          <button className={classes.buttonPlse} onClick={handleOnClickAdd}>
+          <button className={classes.buttonPlse} onClick={onClick}>
             +
           </button>
         </div>
@@ -43,16 +33,16 @@ function Product(props) {
     return (
       <div className={classes.productBox}>
         <img
-          src={props.img}
-          className={props.n ? classes.imgSelect : classes.img}
+          src={item.image}
+          className={numberOfItem ? classes.imgSelect : classes.img}
           alt="background"
         />
         <div className={classes.textBox}>
-          <h1 className={classes.text}>{props.title.slice(0, 29)}</h1>
+          <h1 className={classes.text}>{item.title.slice(0, 29)}</h1>
         </div>
 
         <div className={classes.PriceBox}>
-          <h2 className={classes.Price}>{props.price}JD</h2>
+          <h2 className={classes.Price}>{item.price}JD</h2>
         </div>
 
         <div className={classes.buttonBox}>
@@ -60,7 +50,7 @@ function Product(props) {
             className={classes.button}
             onClick={(event) => {
               if (event.target.tagName === "BUTTON") {
-                handleOnClick();
+                onClick();
               }
             }}
           >

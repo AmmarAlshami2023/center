@@ -9,7 +9,7 @@ const router = createBrowserRouter([
   },
   {
     // /:id/:title/:description/:price/:category/:image
-    path: "/productItem/:id/:title/:description/:price/:category/:image/",
+    path: "/productItem/:id/",
     element: <ProductItem />,
   },
 ]);

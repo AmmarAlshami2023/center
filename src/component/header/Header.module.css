@@ -1,0 +1,64 @@
+@keyframes animationTitle {
+  0% {
+    left: 0px;
+    top: 0px;
+  }
+  25% {
+    left: 40%;
+    top: 0px;
+  }
+  50% {
+    left: 40%;
+    top: 90px;
+  }
+  75% {
+    left: 20%;
+    top: 45px;
+  }
+  100% {
+    left: 0px;
+    top: 0px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .title {
+    font-size: 30px;
+  }
+}
+@media screen and (min-width: 580px) {
+  .title {
+    font-size: 50px;
+  }
+}
+.headers {
+  width: 100%;
+  background-color: rgba(177, 177, 177, 0.989);
+  text-align: center;
+  padding: 1.5%;
+  margin-bottom: 70px;
+}
+.bar {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.titleBox {
+  position: relative;
+  animation-name: animationTitle;
+  animation-duration: 4s;
+}
+.title {
+  color: #000000;
+  text-align: center;
+  margin: 0%;
+  justify-self: start;
+  font-weight: bold;
+  transition: 0s linear 0s;
+}
+.cartBox {
+  padding-right: 3.5rem;
+  float: right;
+}

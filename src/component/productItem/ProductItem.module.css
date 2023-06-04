@@ -15,7 +15,7 @@
 }
 .titleBox {
   position: relative;
-  animation-name: animTitle;
+  animation-name: animationTitle;
   animation-duration: 4s;
 }
 @media screen and (min-width: 540px) {
@@ -62,7 +62,7 @@
     height: 700px;
     margin-top: 25px;
   }
-  .discriptionBox {
+  .descriptionBox {
     font-family: Poppins, sans-serif;
     font-style: normal;
     font-size: large;
@@ -111,7 +111,7 @@
     width: 350px;
     height: 400px;
   }
-  .discriptionBox {
+  .descriptionBox {
     font-size: small;
   }
   .priceBox {
