@@ -12,14 +12,12 @@ export const cartItem = createSlice({
       state.item.push(action.payload);
     },
     removeFromCart: (state, action) => {
-      const newState = { ...state };
-      const index = newState.item.findIndex((item) => {
+      const index = state.item.findIndex((item) => {
         return item.id === action.payload;
       });
       if (index !== -1) {
-        newState.item.splice(index, 1);
+        state.item.splice(index, 1);
       }
-      state = newState;
     },
   },
 });

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import classes from "./Home.module.css";
-
 import Product from "./products/Product";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "../component/store/ReduxSlice";
-import MyCart from "./cart/MyCart";
+import MyItemOnCart from "./cart/MyItemOnCart";
 import { useNavigate } from "react-router";
 import Header from "./header/Header";
 function Home() {
@@ -16,16 +15,13 @@ function Home() {
   const navigate = useNavigate();
 
   //this piece of code for use redux toolkit hooks
-  const cartItem = useSelector((state) => state.cart.item);
+  const cartItems = useSelector((state) => state.cart.item);
   const dispatch = useDispatch();
 
   //this piece of code for count id on cart
   const itemsCount = {};
-  const arryOfId = [];
-  cartItem.map((itemOnCart) => {
-    arryOfId.push(itemOnCart.id);
-  });
-  arryOfId.forEach((index) => {
+  const arryOfIds = cartItems.map((itemOnCart) => itemOnCart.id);
+  arryOfIds.forEach((index) => {
     return (itemsCount[index] = (itemsCount[index] || 0) + 1);
   });
 
@@ -36,48 +32,6 @@ function Home() {
       .then((data) => setProducts(data))
       .catch((error) => console.log(error));
   }, []);
-
-  //this piece of code to return items on cart
-  const myCart = cartItem.map((piece) => {
-    return (
-      <div>
-        <MyCart
-          key={piece.id}
-          piece={piece}
-          onClick={() => {
-            dispatch(removeFromCart(piece.id));
-          }}
-        />
-      </div>
-    );
-  });
-
-  //this piece of code to map state All item
-  const items = products.map((item) => {
-    return (
-      //All item has detail page
-      <div
-        key={item.id}
-        onClick={(event) => {
-          if (event.target.tagName !== "BUTTON") {
-            navigate(`/productItem/${item.id}/`);
-          }
-        }}
-      >
-        <Product
-          item={item}
-          key={item.id}
-          numberOfItem={itemsCount[item.id]}
-          onClick={() => {
-            dispatch(addToCart(item));
-          }}
-          onClickRemove={() => {
-            dispatch(removeFromCart(item.id));
-          }}
-        />
-      </div>
-    );
-  });
 
   //this piece of code to open cart Popup
   function openPopup() {
@@ -100,13 +54,59 @@ function Home() {
           &times;
         </button>
 
-        <div className={classes.myItemOnCart}>{myCart}</div>
+        <div className={classes.myItemOnCart}>
+          {
+            //this piece of code to return items on cart
+            cartItems.map((piece) => {
+              return (
+                <div>
+                  <MyItemOnCart
+                    key={piece.id}
+                    piece={piece}
+                    onClick={() => {
+                      dispatch(removeFromCart(piece.id));
+                    }}
+                  />
+                </div>
+              );
+            })
+          }
+        </div>
       </div>
       <div>
         <Header onClick={openPopup} />
       </div>
 
-      <div className={classes.containerItem}>{items}</div>
+      <div className={classes.containerItem}>
+        {
+          //this piece of code to map state All item
+          products.map((item) => {
+            return (
+              //All item has detail page
+              <div
+                key={item.id}
+                onClick={(event) => {
+                  if (event.target.tagName !== "BUTTON") {
+                    navigate(`/productItem/${item.id}/`);
+                  }
+                }}
+              >
+                <Product
+                  item={item}
+                  key={item.id}
+                  numberOfItem={itemsCount[item.id]}
+                  onClick={() => {
+                    dispatch(addToCart(item));
+                  }}
+                  onClickRemove={() => {
+                    dispatch(removeFromCart(item.id));
+                  }}
+                />
+              </div>
+            );
+          })
+        }
+      </div>
     </div>
   );
 }

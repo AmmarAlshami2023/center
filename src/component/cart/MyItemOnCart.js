@@ -1,12 +1,15 @@
 import React from "react";
 import classes from "./MyCart.module.css";
-function MyCart({ piece = {}, onClick }) {
+function MyItemOnCart({ piece = {}, onClick }) {
   return (
     <div className={classes.cartItemBox}>
       <div>
-        <img src={piece.image} className={classes.imgOnCart} alt="background" />
+        <img
+          src={piece.image}
+          className={classes.imgOnCart}
+          alt="for product"
+        />
       </div>
-
       <div className={classes.title}>
         <p>{piece.title}</p>
       </div>
@@ -25,4 +28,4 @@ function MyCart({ piece = {}, onClick }) {
   );
 }
 
-export default MyCart;
+export default MyItemOnCart;
